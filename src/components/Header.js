@@ -14,12 +14,13 @@ const Header = (props) => (
 
 
 
+
 /stylesheet/
 const style = StyleSheet.create( {
 	container: {
 	//[propriedades CSS] : [Valor]
 		marginTop: 25,
-		backgroundColor: '#B3ACF4',
+		backgroundColor: '#6987DD',
 
 
 		alignItems: 'center',
@@ -28,7 +29,7 @@ const style = StyleSheet.create( {
 
 	title: {
 		fontSize: 50,
-		color: '#D5F90B',
+		color: '#fff',
 	}
 })
 

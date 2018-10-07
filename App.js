@@ -3,38 +3,47 @@ import { StyleSheet, Text, View } from 'react-native';
 import axios from 'axios';
 
 import Header from './src/components/Header';
+import PeopleList from './src/components/PeopleList';
 
 export default class App extends React.Component {
 
-    renderList(){
-       /*const textElements = names.map(name => {
-        return <Text key ={name}>{name}</Text>
-        }
-      );*/
+    constructor(props){
+      super(props);
+
+      this.state = {
+        peoples: []
+      };
+    }
+
+    componentDidMount(){
       /Promises/
       axios
       .get('https://randomuser.me/api/?nat=br&results=5')
       .then(response =>{
           const { results } = response.data;
-          const names  = results.map(people => people.name.first);
-          console.log(names);
+          this.setState({
+              peoples: results
+          });
+          
       })
-
-
-
-
-      //return textElements;
     }
 
   render() {
     return (
       <View>
         <Header title="Pessoas!"/> 
-        { this.renderList()}
+        <PeopleList peoples={this.state.peoples} /> 
       </View>
     );
   }
 }
+
+
+
+
+
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -44,3 +53,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+
