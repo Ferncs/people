@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet} from 'react-native';
+import { FlatList, Text, StyleSheet} from 'react-native';
 
 import PeopleListItem from './PeopleListItem';
 
@@ -7,21 +7,21 @@ import PeopleListItem from './PeopleListItem';
 
 const PeopleList = props =>{
 
-    const {peoples} = props;
-    const items = peoples.map(people => {
-    	return (
-    		<PeopleListItem 
-    			key = {people.name.first} 
-    			people = {people} />
-    	);
-    });
+    const {peoples, onPressItem} = props;
 
 	return(
-		<View style = {styles.container}>
-			{items}
-		</View>
+		<FlatList 
+			style={styles.container} 
+			data={peoples} 
+			renderItem={({ item }) => (
+				<PeopleListItem 
+    				people = {item} 
+    				navigateToPeopleDetail = {onPressItem} />
 
-	)
+			)} 
+			keyExtractor={item => item.name.first}/>
+
+	);
 };
 
 

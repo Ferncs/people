@@ -1,57 +1,55 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import axios from 'axios';
+import { createStackNavigator } from 'react-navigation';
 
-import Header from './src/components/Header';
-import PeopleList from './src/components/PeopleList';
+import PeoplePage from './src/pages/PeoplePage';
+import PeopleDetailPage from './src/pages/PeopleDetailPage';
 
-export default class App extends React.Component {
+import { capitalizeFirstLetter }  from './src/util';
 
-    constructor(props){
-      super(props);
 
-      this.state = {
-        peoples: []
-      };
-    }
+export default createStackNavigator({
+  'Main': {
+      screen: PeoplePage
+  },
+  'PeopleDetail' : {
+      screen: PeopleDetailPage,
+      navigationOptions: ({ navigation }) => {
+          const peopleName = capitalizeFirstLetter(navigation.state.params.people.name.first);
+  
 
-    componentDidMount(){
-      /Promises/
-      axios
-      .get('https://randomuser.me/api/?nat=br&results=5')
-      .then(response =>{
-          const { results } = response.data;
-          this.setState({
-              peoples: results
+          return ({
+            title: peopleName,
+            headerTitleStyle:{
+                color: 'white',
+                fontSize: 30,
+            }
+
           });
           
-      })
+      },
+
+    
+  }
+
+
+
+
+},  {
+    navigationOptions: {
+          title: 'Pessoas!',
+          headerTintColor: 'white',
+          headerStyle: {
+              backgroundColor: '#4282EC',
+              borderBottomWidth: 1,
+              borderBottomColor: '#1E1B98'
+
+          },
+          headerTitleStyle:{
+              color: 'white',
+              fontSize: 30,
+              textAlign: 'center',
+              flexGrow: 1,
+
+          }
     }
 
-  render() {
-    return (
-      <View>
-        <Header title="Pessoas!"/> 
-        <PeopleList peoples={this.state.peoples} /> 
-      </View>
-    );
-  }
-}
-
-
-
-
-
-
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 });
-
-
